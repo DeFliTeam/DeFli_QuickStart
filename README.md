@@ -17,7 +17,7 @@ sudo reboot
 Clone in to Repository 
 
 ```bash
-git clone
+git clone https://github.com/DeFliTeam/DeFli_QuickStart.git
 ```
 
 Enter Directory 
