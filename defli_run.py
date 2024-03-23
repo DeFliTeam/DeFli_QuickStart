@@ -19,7 +19,7 @@ os.makedirs(/opt/grafana/prometheus/config)
 os.makedirs(/opt/grafana/prometheus/data)
 
 # Function to load the current configuration values for a Docker service
-def load_current_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry):
+def load_current_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry, ip_entry):
     with open(file_path, 'r') as file:
         config = yaml.load(file, Loader=yaml.FullLoader)
 
