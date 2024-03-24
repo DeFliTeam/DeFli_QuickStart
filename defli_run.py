@@ -27,8 +27,8 @@ else
   cat > $/opt/grafana/prometheus/config/prometheus.yml <<EOF
 {# my global config
   global:
-    scrape_interval: 10s
-    evaluation_interval: 10s
+    scrape_interval: 10.0s
+    evaluation_interval: 10.0s
  # Alertmanager configuration
  alerting:
    alertmanagers:
