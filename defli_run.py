@@ -406,7 +406,7 @@ save_button_2 = tk.Button(tab2, text="Save Changes", command=lambda: save_grafan
 running_label_2 = tk.Label(tab2, text="Not Running", foreground="red")
 
 # Load and display the current configuration values for Service 2 (grafana)
-load_readsb_config("docker-compose-readsb.yml",)
+load_grafana_config("docker-compose-grafana.yml",)
 update_running_indicator(is_readsb_service_running(), running_label_2)
 
 # Arrange widgets for Service 2 (grafana)
