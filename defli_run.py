@@ -380,7 +380,7 @@ bucketid_entry = tk.Entry(tab1)
 running_label = tk.Label(tab1, text="Not Running", foreground="red")
 
 # Load and display the current configuration values for Service 1 (defli_run)
-load_current_config("docker-compose-defli_run.yml", lat_entry, lon_entry, tz_entry, alt_entry, ip_entry, bucketid_entry)
+load_current_config("docker-compose-defli_run.yml", lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry)
 update_running_indicator(is_service_running("docker-compose-defli_run.yml"), running_label)
 
 # Arrange widgets for Service 1 (defli_run)
