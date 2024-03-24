@@ -364,7 +364,7 @@ def set_initial_focus(event):
 tab3.bind("<Visibility>", set_initial_focus)
 
 # Create and configure widgets for Service 1 (defli_run)
-start_button_1 = tk.Button(tab1, text="Start DeFli_Run Service", command=lambda: start_service("docker-compose-defli_run.yml", lat_entry, lon_entry, tz_entry, alt_entry running_label))
+start_button_1 = tk.Button(tab1, text="Start DeFli_Run Service", command=lambda: start_service("docker-compose-defli_run.yml", lat_entry, lon_entry, tz_entry, alt_entry, running_label))
 stop_button_1 = tk.Button(tab1, text="Stop DeFli_Run Service", command=lambda: stop_service("docker-compose-defli_run.yml", running_label))
 save_button_1 = tk.Button(tab1, text="Save Changes", command=lambda: save_changes("docker-compose-defli_run.yml", lat_entry.get(), lon_entry.get(), tz_entry.get(), alt_entry.get()))
 lat_label_1 = tk.Label(tab1, text="Latitude:")
