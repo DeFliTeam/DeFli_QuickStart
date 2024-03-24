@@ -143,7 +143,7 @@ def apply_temporary_changes(file_path, new_lat, new_lon, new_tz, new_alt, new_bu
 
 # Function to start a Docker service
 def start_service(file_path, lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry, running_label):
-    apply_temporary_changes(file_path, lat_entry.get(), lon_entry.get(), tz_entry.get(), alt_entry.get(), bucketid_entry.get()))
+    apply_temporary_changes(file_path, lat_entry.get(), lon_entry.get(), tz_entry.get(), alt_entry.get(), bucketid_entry.get())
     subprocess.Popen(["docker", "compose", "--file", file_path, "up", "-d"])
     update_running_indicator(True, running_label)
 
