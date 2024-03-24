@@ -235,7 +235,7 @@ def save_defli_run_changes(file_path, new_lat, new_lon, new_tz, new_alt, new_buc
     apply_temporary_defli_run_changes(file_path, new_lat, new_lon, new_tz, new_alt, new_bucketid)
 
 # Function to load the current configuration values for the acarshub service
-def load_acarshub_config(file_path, lat_entry, lon_entry, tz_entry alt_entry, bucketid_entry, feed_entry):
+def load_acarshub_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry, feed_entry):
     with open(file_path, 'r') as file:
         config = yaml.load(file, Loader=yaml.FullLoader)
 
