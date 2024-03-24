@@ -173,9 +173,9 @@ def load_defli_run_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, 
             elif var.startswith('TZ='):
                 tz = var.split('=')[1]
             elif var.startswith('ALT='):
-                tz = var.split('=')[1]
+                alt = var.split('=')[1]
             elif var.startswith('BUCKETID='):
-                tz = var.split('=')[1]
+                bucketid = var.split('=')[1]
 
     lat_entry.delete(0, tk.END)
     lon_entry.delete(0, tk.END)
@@ -186,8 +186,8 @@ def load_defli_run_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, 
     lat_entry.insert(0, lat)
     lon_entry.insert(0, lon)
     tz_entry.insert(0, tz)
-    alt_entry.insert(0, tz)
-    bucketid_entry.insert(0, tz)
+    alt_entry.insert(0, alt)
+    bucketid_entry.insert(0, bucketid)
 
 # Function to check if the DeFli_Run service is running
 def is_readsb_service_running():
@@ -208,9 +208,9 @@ def apply_temporary_defli_run_changes(file_path, new_lat, new_lon, new_tz, new_a
             elif env[i].startswith('TZ='):
                 env[i] = f'TZ={new_tz}'
             elif env[i].startswith('ALT='):
-                env[i] = f'ALT={new_tz}'
+                env[i] = f'ALT={new_alt}'
             elif env[i].startswith('BUCKETID='):
-                env[i] = f'BUCKETID={new_tz}'
+                env[i] = f'BUCKETID={new_bucketid}'
 
     with open(file_path, 'w') as file:
         yaml.dump(config, file)
