@@ -25,6 +25,7 @@ if [ -e $policy ]; then
   echo "File prometheus.yml already exists!"
 else
   cat > $/opt/grafana/prometheus/config/prometheus.yml <<EOF
+      
 {# my global config
   global:
     scrape_interval: 10
