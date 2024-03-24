@@ -12,6 +12,7 @@ def check_sudo():
         return False
     return True 
 
+# Function to install and grafana directories and prometheus.yml file
 import os
 
 directories = [
@@ -59,7 +60,7 @@ with open(prometheus_file_path, "w") as file:
 print("Directories and Prometheus configuration file created successfully.")
 
 # Function to load the current configuration values for a Docker service
-def load_current_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry, ip_entry):
+def load_current_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry):
     with open(file_path, 'r') as file:
         config = yaml.load(file, Loader=yaml.FullLoader)
 
@@ -68,7 +69,7 @@ def load_current_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, bu
     tz = ''
     alt = ''
     bucketid = ''
-    ip = ''
+    
 
     if 'services' in config:
         for service in config['services']:
@@ -84,22 +85,21 @@ def load_current_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, bu
                     tz = var.split('=')[1] 
                 elif var.startswith('BUCKETID='):
                     tz = var.split('=')[1]
-                elif var.startswith('IP='):
-                    tz = var.split('=')[1]
+                
 
     lat_entry.delete(0, tk.END)
     lon_entry.delete(0, tk.END)
     tz_entry.delete(0, tk.END)
     alt_entry.delete(0, tk.END)
     bucketid_entry.delete(0, tk.END)
-    ip_entry.delete(0, tk.END)
+   
 
     lat_entry.insert(0, lat)
     lon_entry.insert(0, lon)
     tz_entry.insert(0, tz)
     alt_entry.insert(0, alt)
     bucketid_entry.insert(0, bucketid)
-    ip_entry.insert(0, ip)
+    
 
 # Function to check if a Docker service is running
 def is_service_running(service_name):
@@ -136,15 +136,14 @@ def apply_temporary_changes(file_path, new_lat, new_lon, new_tz, new_alt, new_bu
                 env[i] = f'ALT={new_alt}'
             elif env[i].startswith('BUCKETID='):
                 env[i] = f'BUCKETID={new_bucketid}' 
-            elif env[i].startswith('IP='):
-                env[i] = f'IP={new_ip}'
+           
 
     with open(file_path, 'w') as file:
         yaml.dump(config, file)
 
 # Function to start a Docker service
-def start_service(file_path, lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry, ip_entry, running_label):
-    apply_temporary_changes(file_path, lat_entry.get(), lon_entry.get(), tz_entry.get(), alt_entry.get(), bucketid_entry.get(), ip_entry.get())
+def start_service(file_path, lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry, running_label):
+    apply_temporary_changes(file_path, lat_entry.get(), lon_entry.get(), tz_entry.get(), alt_entry.get(), bucketid_entry.get()))
     subprocess.Popen(["docker", "compose", "--file", file_path, "up", "-d"])
     update_running_indicator(True, running_label)
 
@@ -162,6 +161,7 @@ def load_defli_run_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, 
     lon = ''
     tz = ''
     alt = ''
+    bucketid = ''
 
     if 'services' in config and 'defli_run' in config['services']:
         env = config['services']['defli_run'].get('environment', [])
