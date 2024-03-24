@@ -132,11 +132,11 @@ def apply_temporary_changes(file_path, new_lat, new_lon, new_tz, new_alt, new_bu
             elif env[i].startswith('TZ='):
                 env[i] = f'TZ={new_tz}'
             elif env[i].startswith('ALT='):
-                env[i] = f'TZ={new_alt}'
+                env[i] = f'ALT={new_alt}'
             elif env[i].startswith('BUCKETID='):
-                env[i] = f'TZ={new_bucketid}' 
+                env[i] = f'BUCKETID={new_bucketid}' 
             elif env[i].startswith('IP='):
-                env[i] = f'TZ={new_ip}'
+                env[i] = f'IP={new_ip}'
 
     with open(file_path, 'w') as file:
         yaml.dump(config, file)
