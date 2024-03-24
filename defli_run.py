@@ -12,51 +12,51 @@ def check_sudo():
         return False
     return True 
 
-# Function to create Grafana directory and subdirectories
-os.makedir(/opt/grafana)
-os.makedirs(/opt/grafana/grafana/appdata)
-os.makedirs(/opt/grafana/prometheus/config)
-os.makedirs(/opt/grafana/prometheus/data)
+import os
 
-# Function to create prometheus config file
-#!/bin/bash
-file_location=/opt/grafana/prometheus/config/prometheus.yml
-if [ -e $policy ]; then
-  echo "File prometheus.yml already exists!"
-else
-  cat > $/opt/grafana/prometheus/config/prometheus.yml <<EOF
-      
-{# my global config
-  global:
-    scrape_interval: 10
-    evaluation_interval: 10
- # Alertmanager configuration
- alerting:
-   alertmanagers:
-     - static_configs:
-         - targets:
-           # - alertmanager:9093
+directories = [
+    "/opt/grafana/grafana/appdata",
+    "/opt/grafana/prometheus/config",
+    "/opt/grafana/prometheus/data"
+]
+
+for directory in directories:
+    os.makedirs(directory, exist_ok=True)
+
+prometheus_config = """\
+# my global config
+global:
+  scrape_interval: 10
+  evaluation_interval: 10
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
 
 scrape_configs:
   - job_name: "ultrafeeder"
-  static_configs:
-    - targets: ["localhost:9273", "localhost:9274"]
+    static_configs:
+      - targets: ["localhost:9273", "localhost:9274"]
 
   - job_name: "prometheus"
-  static_configs: 
-    - targets: ["localhost:9090"]
+    static_configs: 
+      - targets: ["localhost:9090"]
 
-  remote_write:
+remote_write:
   - url: https://prometheus-prod-13-prod-us-east-0.grafana.net/api/prom/push
     basic_auth:
       username: 1488847
       password: glc_eyJvIjoiMTA4MjgwNiIsIm4iOiJzdGFjay04ODc4MjAtaG0tcmVhZC1kZWZsaS1kb2NrZXIiLCJrIjoiN2NXNjJpMDkyTmpZUWljSDkwT3NOMDh1IiwibSI6eyJyIjoicHJvZC11cy1lYXN0LTAifX0=
+"""
 
- 
-      }
-    }
-EOF
-fi
+prometheus_file_path = "/opt/grafana/prometheus/config/prometheus.yml"
+with open(prometheus_file_path, "w") as file:
+    file.write(prometheus_config)
+
+print("Directories and Prometheus configuration file created successfully.")
 
 # Function to load the current configuration values for a Docker service
 def load_current_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry, ip_entry):
