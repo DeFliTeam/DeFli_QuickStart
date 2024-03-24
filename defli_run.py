@@ -18,6 +18,45 @@ os.makedirs(/opt/grafana/grafana/appdata)
 os.makedirs(/opt/grafana/prometheus/config)
 os.makedirs(/opt/grafana/prometheus/data)
 
+# Function to create prometheus config file
+#!/bin/bash
+file_location=/opt/grafana/prometheus/config/prometheus.yml
+if [ -e $policy ]; then
+  echo "File prometheus.yml already exists!"
+else
+  cat > $/opt/grafana/prometheus/config/prometheus.yml <<EOF
+{# my global config
+  global:
+    scrape_interval: 10s
+    evaluation_interval: 10s
+ # Alertmanager configuration
+ alerting:
+   alertmanagers:
+     - static_configs:
+         - targets:
+           # - alertmanager:9093
+
+scrape_configs:
+  - job_name: "ultrafeeder"
+  static_configs:
+    - targets: ["localhost:9273", "localhost:9274"]
+
+  - job_name: "prometheus"
+  static_configs: 
+    - targets: ["localhost:9090"]
+
+  remote_write:
+  - url: https://prometheus-prod-13-prod-us-east-0.grafana.net/api/prom/push
+    basic_auth:
+      username: 1488847
+      password: glc_eyJvIjoiMTA4MjgwNiIsIm4iOiJzdGFjay04ODc4MjAtaG0tcmVhZC1kZWZsaS1kb2NrZXIiLCJrIjoiN2NXNjJpMDkyTmpZUWljSDkwT3NOMDh1IiwibSI6eyJyIjoicHJvZC11cy1lYXN0LTAifX0=
+
+ 
+      }
+    }
+EOF
+fi
+
 # Function to load the current configuration values for a Docker service
 def load_current_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry, ip_entry):
     with open(file_path, 'r') as file:
