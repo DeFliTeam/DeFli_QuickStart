@@ -429,7 +429,7 @@ alt_entry_3 = tk.Entry(tab3)
 running_label_3 = tk.Label(tab3, text="Not Running", foreground="red")
 
 # Load and display the current configuration values for Service 3 (acarshub)
-load_acarshub_config("docker-compose-acarshub.yml", lat_entry_3, lon_entry_3, tz_entry_3, alt_entry)
+load_acarshub_config("docker-compose-acarshub.yml", lat_entry_3, lon_entry_3, tz_entry_3, alt_entry, feed_entry, bucketid_entry)
 update_running_indicator(is_acarshub_service_running(), running_label_3)
 
 # Arrange widgets for Service 3 (acarshub)
