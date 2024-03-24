@@ -405,9 +405,6 @@ stop_button_2 = tk.Button(tab2, text="Stop GRAFANA Service", command=lambda: sto
 save_button_2 = tk.Button(tab2, text="Save Changes", command=lambda: save_grafana_changes("docker-compose-grafana.yml"))
 running_label_2 = tk.Label(tab2, text="Not Running", foreground="red")
 
-# Load and display the current configuration values for Service 2 (grafana)
-load_grafana_config("docker-compose-grafana.yml",)
-update_running_indicator(is_readsb_service_running(), running_label_2)
 
 # Arrange widgets for Service 2 (grafana)
 start_button_2.grid(row=0, column=0, padx=10, pady=10)
