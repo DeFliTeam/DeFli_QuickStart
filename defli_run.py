@@ -160,6 +160,7 @@ def load_defli_run_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, 
     lat = ''
     lon = ''
     tz = ''
+    alt = ''
 
     if 'services' in config and 'defli_run' in config['services']:
         env = config['services']['defli_run'].get('environment', [])
@@ -214,15 +215,15 @@ def apply_temporary_defli_run_changes(file_path, new_lat, new_lon, new_tz, new_a
         yaml.dump(config, file)
 
 # Function to start the DeFli_Run service
-def start_defli_run_service(file_path, lat_entry_2, lon_entry_2, tz_entry_2, alt_entry_2, bucketid_entry_2, running_label_2):
-    apply_temporary_defli_run_changes(file_path, lat_entry_2.get(), lon_entry_2.get(), tz_entry_2.get(), alt_entry_2.get(), bucketid_entry_2.get())
+def start_defli_run_service(file_path, lat_entry_1, lon_entry_1, tz_entry_1, alt_entry_1, bucketid_entry_1, running_label_1):
+    apply_temporary_defli_run_changes(file_path, lat_entry_1.get(), lon_entry_1.get(), tz_entry_1.get(), alt_entry_1.get(), bucketid_entry_1.get())
     subprocess.Popen(["docker", "compose", "--file", file_path, "up", "-d"])
-    update_running_indicator(True, running_label_2)
+    update_running_indicator(True, running_label_1)
 
 # Function to stop the DeFli_Run service
-def stop_defli_run_service(file_path, running_label_2):
+def stop_defli_run_service(file_path, running_label_1):
     subprocess.Popen(["docker", "compose", "--file", file_path, "down"])
-    update_running_indicator(False, running_label_2)
+    update_running_indicator(False, running_label_1)
 
 # Function to save changes to a Docker service configuration
 def save_changes(file_path, new_lat, new_lon, new_tz, new_alt, new_bucketid):
@@ -268,13 +269,13 @@ def load_acarshub_config(file_path, lat_entry, lon_entry, tz_entry alt_entry, bu
     tz_entry.delete(0, tk.END)
     alt_entry.delete(0, tk.END)
     feed_entry.delete(0, tk.END)
-    feed_entry.insert(0, feed)
+
 
     lat_entry.insert(0, lat)
     lon_entry.insert(0, lon)
     tz_entry.insert(0, tz)
     alt_entry.insert(0, alt)
-    feed_entry.insert(0, alt)
+    feed_entry.insert(0, feed)
 
 # Function to check if the acarshub service is running
 def is_acarshub_service_running():
@@ -322,6 +323,20 @@ def stop_acarshub_service(file_path, running_label_3):
 def save_acarshub_changes(file_path, new_lat, new_lon, new_tz, new_alt, new_feed):
     apply_temporary_acarshub_changes(file_path, new_lat, new_lon, new_tz, new_alt, new_feed)
 
+# Function to check if the grafana service is running
+def is_grafana_service_running():
+    return is_service_running("grafana")
+
+# Function to start the grafana service
+def start_acarshub_service(file_path, running_label_2):
+    subprocess.Popen(["docker", "compose", "--file", file_path, "up", "-d"])
+    update_running_indicator(True, running_label_2)
+
+# Function to stop the grafana service
+def stop_acarshub_service(file_path, running_label_2):
+    subprocess.Popen(["docker", "compose", "--file", file_path, "down"])
+    update_running_indicator(False, running_label_2)
+
 # Create the main window
 window = tk.Tk()
 window.title("DeFli Installation")
@@ -355,20 +370,22 @@ lat_label_1 = tk.Label(tab1, text="Latitude:")
 lon_label_1 = tk.Label(tab1, text="Longitude:")
 tz_label_1 = tk.Label(tab1, text="Timezone:")
 alt_label_1 = tk.Label(tab1, text="Altitude M:")
+bucketid_label_1 = tk.Label(tab1, text="BucketID:")
 lat_entry = tk.Entry(tab1)
 lon_entry = tk.Entry(tab1)
 tz_entry = tk.Entry(tab1)
 alt_entry = tk.Entry(tab1)
+bucketid_entry = tk.Entry(tab1)
 running_label = tk.Label(tab1, text="Not Running", foreground="red")
 
 # Load and display the current configuration values for Service 1 (defli_run)
-load_current_config("docker-compose-tar1090.yml", lat_entry, lon_entry, tz_entry, alt_entry)
+load_current_config("docker-compose-defli_run.yml", lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry)
 update_running_indicator(is_service_running("docker-compose-defli_run.yml"), running_label)
 
 # Arrange widgets for Service 1 (defli_run)
 start_button_1.grid(row=0, column=0, padx=10, pady=10)
 stop_button_1.grid(row=0, column=1, padx=10, pady=10)
-save_button_1.grid(row=4, column=0, padx=10, pady=10)
+save_button_1.grid(row=6, column=0, padx=10, pady=10)
 lat_label_1.grid(row=1, column=0, padx=10, pady=10)
 lat_entry.grid(row=1, column=1, padx=10, pady=10)
 lon_label_1.grid(row=2, column=0, padx=10, pady=10)
@@ -377,34 +394,24 @@ tz_label_1.grid(row=3, column=0, padx=10, pady=10)
 tz_entry.grid(row=3, column=1, padx=10, pady=10)
 alt_label_1.grid(row=4, column=0, padx=10, pady=10)
 alt_entry.grid(row=4, column=1, padx=10, pady=10)
-running_label.grid(row=5, column=1, padx=10, pady=10)
+bucketid_label_1.grid(row=5, column=0, padx=10, pady=10)
+bucketid_entry.grid(row=5, column=1, padx=10, pady=10)
+running_label.grid(row=6, column=1, padx=10, pady=10)
 
 # Create and configure widgets for Service 2 (grafana)
-start_button_2 = tk.Button(tab2, text="Start Grafana Service", command=lambda: start_grafana_service("docker-compose-grafana.yml", lat_entry_2, lon_entry_2, tz_entry_2, running_label_2))
+start_button_2 = tk.Button(tab2, text="Start Grafana Service", command=lambda: start_grafana_service("docker-compose-grafana.yml", running_label_2))
 stop_button_2 = tk.Button(tab2, text="Stop GRAFANA Service", command=lambda: stop_grafana_service("docker-compose-grafana.yml", running_label_2))
-save_button_2 = tk.Button(tab2, text="Save Changes", command=lambda: save_grafana_changes("docker-compose-grafana.yml", lat_entry_2.get(), lon_entry_2.get(), tz_entry_2.get()))
-lat_label_2 = tk.Label(tab2, text="Latitude:")
-lon_label_2 = tk.Label(tab2, text="Longitude:")
-tz_label_2 = tk.Label(tab2, text="Timezone:")
-lat_entry_2 = tk.Entry(tab2)
-lon_entry_2 = tk.Entry(tab2)
-tz_entry_2 = tk.Entry(tab2)
+save_button_2 = tk.Button(tab2, text="Save Changes", command=lambda: save_grafana_changes("docker-compose-grafana.yml"))
 running_label_2 = tk.Label(tab2, text="Not Running", foreground="red")
 
 # Load and display the current configuration values for Service 2 (grafana)
-load_readsb_config("docker-compose-readsb.yml", lat_entry_2, lon_entry_2, tz_entry_2)
+load_readsb_config("docker-compose-readsb.yml",)
 update_running_indicator(is_readsb_service_running(), running_label_2)
 
 # Arrange widgets for Service 2 (grafana)
 start_button_2.grid(row=0, column=0, padx=10, pady=10)
 stop_button_2.grid(row=0, column=1, padx=10, pady=10)
 save_button_2.grid(row=4, column=0, padx=10, pady=10)
-lat_label_2.grid(row=1, column=0, padx=10, pady=10)
-lat_entry_2.grid(row=1, column=1, padx=10, pady=10)
-lon_label_2.grid(row=2, column=0, padx=10, pady=10)
-lon_entry_2.grid(row=2, column=1, padx=10, pady=10)
-tz_label_2.grid(row=3, column=0, padx=10, pady=10)
-tz_entry_2.grid(row=3, column=1, padx=10, pady=10)
 running_label_2.grid(row=4, column=1, padx=10, pady=10)
 
 # Create and configure widgets for Service 3 (acarshub)
