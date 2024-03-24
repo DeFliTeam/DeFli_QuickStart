@@ -25,7 +25,7 @@ git clone https://github.com/DeFliTeam/defli_quickstart.git
 Enter Directory 
 
 ```bash
-cd deFli_quickstart/
+cd defli_quickstart/
 ```
 
 Run Script 
