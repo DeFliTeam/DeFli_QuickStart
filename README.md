@@ -19,13 +19,13 @@ sudo reboot
 Clone in to Repository 
 
 ```bash
-git clone https://github.com/DeFliTeam/DeFli_QuickStart.git
+git clone https://github.com/DeFliTeam/defli_quickstart.git
 ```
 
 Enter Directory 
 
 ```bash
-cd DeFli_Quickstart/
+cd deFli_quickstart/
 ```
 
 Run Script 
