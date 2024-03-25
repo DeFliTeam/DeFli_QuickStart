@@ -119,7 +119,7 @@ if not check_sudo():
     sys.exit(1)
 
 # Function to apply temporary changes to a Docker service configuration
-def apply_temporary_changes(file_path, new_lat, new_lon, new_tz, new_alt, new_bucketid, new_ip):
+def apply_temporary_changes(file_path, new_lat, new_lon, new_tz, new_alt, new_bucketid):
     with open(file_path, 'r') as file:
         config = yaml.safe_load(file)
 
@@ -366,7 +366,7 @@ tab3.bind("<Visibility>", set_initial_focus)
 # Create and configure widgets for Service 1 (defli_run)
 start_button_1 = tk.Button(tab1, text="Start DeFli_Run Service", command=lambda: start_service("docker-compose-defli_run.yml", lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry, running_label1))
 stop_button_1 = tk.Button(tab1, text="Stop DeFli_Run Service", command=lambda: stop_service("docker-compose-defli_run.yml", running_label))
-save_button_1 = tk.Button(tab1, text="Save Changes", command=lambda: save_changes("docker-compose-defli_run.yml", lat_entry.get(), lon_entry.get(), tz_entry.get(), alt_entry.get(), bucketid_entry.get()))
+save_button_1 = tk.Button(tab1, text="Save Changes", command=lambda: save_changes("docker-compose-defli_run.yml", lat_entry.get(), lon_entry.get(), tz_entry.get(), alt_entry.get(), bucketid_entry.get())
 lat_label_1 = tk.Label(tab1, text="Latitude:")
 lon_label_1 = tk.Label(tab1, text="Longitude:")
 tz_label_1 = tk.Label(tab1, text="Timezone:")
