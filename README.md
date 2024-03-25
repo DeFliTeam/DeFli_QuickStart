@@ -3,6 +3,46 @@ Quick Start DeFli and Push to Grafana
 
 GUI based service to deploy DeFli_Run, Grafana and AcarsHub. 
 
+Suitable for deployment on DeFli Device (Pre-Installed), Raspberry Pi or Windows 
+
+### Notes 
+
+If you are running on Windows you will first need to create a WSL virtual environment and make some configuration changes. 
+
+To make the USB port accessible please follow these instructions https://github.com/DeFliTeam/flightview_gui?tab=readme-ov-file#windows-including-defli-device. 
+
+To enable "localhost" from your WSL
+
+From your ubuntu terminal
+
+```bash
+cd /etc/
+```
+```bash
+sudo nano ./wslconfig
+```
+Enter the following text in to the file 
+```bash
+[wsl2]
+networkingMode=mirrored
+```
+```bash
+ctrl + x
+y
+```
+Close down the ubuntu terminal 
+
+Open a windows terminal as administrator 
+```bash
+wsl --shutdown
+```
+Now re-open Ubuntu and follow the rest of the instructions 
+
+### For all users 
+
+Please ensure that ports 80, 8078, 8080, 9090, 9273 and 9274 are open to incoming TCP requests from public sources.
+
+
 ## This will enable you to produce your own Grafana Dashboard as well as view tar1090.
 
 Instructions: 
@@ -36,11 +76,7 @@ sudo python3 defli_run.py
 
 If you have configured the containers as described above, you should be able to browse to the following web pages: You should now be able to browse to:
 
-http://dockerhost/ to access the tar1090 web interface.
-http://dockerhost/?replay to see a replay of past data
-http://dockerhost/?heatmap to see the heatmap for the past 24 hours
-http://dockerhost/?heatmap&realHeat to see a different heatmap for the past 24 hours
-http://dockerhost/?pTracks to see the tracks of all planes for the past 24 hours
+http://localhost:8078/ to access the tar1090 web interface.
 http://dockerhost/graphs1090/ to see performance graphs 
 
 Note you can replace dockerhost with localhost or your IP address
@@ -67,26 +103,6 @@ Note you can replace dockerhost with localhost or your IP address
 
 ## Troubleshooting 
 
-If you are not getting any output from your localhost you can edit the IP address used. 
-
-To do this enter your Ubuntu terminal and run 
-```bash
-cd /opt/grafana/prometheus/config/
-```
-then 
-```bash
-sudo nano prometheus.yml
-```
-Within the file you can edit the "localhost" addresses to any you like. 
-
-To save
-```bash
-ctrl + x
-y
-```
-```bash
-sudo restart prometheus
-```
 
 Then navigate back to your grafana instance at http://localhost:3000/
 Choose "data sources" from the left hand menu 
