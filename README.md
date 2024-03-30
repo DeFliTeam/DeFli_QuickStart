@@ -71,7 +71,7 @@ cd defli_quickstart/
 Run Script 
 
 ```bash
-sudo python3 defli_run.py
+sudo python3 defli_run_it.py
 ```
 
 If you have configured the containers as described above, you should be able to browse to the following web pages: You should now be able to browse to:
@@ -80,6 +80,14 @@ http://localhost:8078/ to access the tar1090 web interface.
 http://dockerhost/graphs1090/ to see performance graphs 
 
 Note you can replace dockerhost with localhost or your IP address 
+
+## Install Prometheus 
+
+Run script 
+
+```bash
+sudo python3 prometheus_run.py
+```
 
 ## How to load your Grafana Dashboard 
 
