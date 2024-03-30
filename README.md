@@ -81,14 +81,6 @@ http://dockerhost/graphs1090/ to see performance graphs
 
 Note you can replace dockerhost with localhost or your IP address 
 
-## Install Prometheus 
-
-Run script 
-
-```bash
-sudo python 3 prometheus_run.py
-```
-
 ## How to load your Grafana Dashboard 
 
 1) Navigate to http://localhost:3000/
