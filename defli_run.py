@@ -14,11 +14,7 @@ def check_sudo():
 
 
 
-prometheus_file_path = "/opt/grafana/prometheus/config/prometheus.yml"
-with open(prometheus_file_path, "w") as file:
-    file.write(prometheus_config)
 
-print("Directories and Prometheus configuration file created successfully.")
 
 # Function to load the current configuration values for a Docker service
 def load_current_config(file_path, lat_entry, lon_entry, tz_entry, alt_entry, bucketid_entry):
@@ -470,6 +466,11 @@ remote_write:
       username: 1488847
       password: glc_eyJvIjoiMTA4MjgwNiIsIm4iOiJzdGFjay04ODc4MjAtaG0tcmVhZC1kZWZsaS1kb2NrZXIiLCJrIjoiN2NXNjJpMDkyTmpZUWljSDkwT3NOMDh1IiwibSI6eyJyIjoicHJvZC11cy1lYXN0LTAifX0=
 """
+prometheus_file_path = "/opt/grafana/prometheus/config/prometheus.yml"
+with open(prometheus_file_path, "w") as file:
+    file.write(prometheus_config)
+
+print("Directories and Prometheus configuration file created successfully.")
 
 # Start the GUI event loop
 window.mainloop()
