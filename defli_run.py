@@ -400,7 +400,7 @@ bucketid_entry.grid(row=5, column=1, padx=10, pady=10)
 running_label.grid(row=6, column=1, padx=10, pady=10)
 
 # Create and configure widgets for Service 2 (grafana)
-start_button_2 = tk.Button(tab2, text="Start Grafana Service", command=lambda: start_service("docker-compose-grafana.yml", running_label_2))
+start_button_2 = tk.Button(tab2, text="Start Grafana Service", command=lambda: start_service("docker-compose-grafana.yml", lat_entry2, lon_entry2, tz_entr2y, alt_entry2, bucketid_entry2, running_label))
 stop_button_2 = tk.Button(tab2, text="Stop GRAFANA Service", command=lambda: stop_service("docker-compose-grafana.yml", running_label_2))
 save_button_2 = tk.Button(tab2, text="Save Changes", command=lambda: save_changes("docker-compose-grafana.yml"))
 running_label_2 = tk.Label(tab2, text="Not Running", foreground="red")
