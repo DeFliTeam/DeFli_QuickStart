@@ -12,46 +12,7 @@ def check_sudo():
         return False
     return True 
 
-# Function to install and grafana directories and prometheus.yml file
-import os
 
-directories = [
-    "/opt/grafana/grafana/appdata",
-    "/opt/grafana/prometheus/config",
-    "/opt/grafana/prometheus/data"
-]
-
-for directory in directories:
-    os.makedirs(directory, exist_ok=True)
-
-prometheus_config = """\
-# my global config
-global:
-  scrape_interval: 10
-  evaluation_interval: 10
-
-# Alertmanager configuration
-alerting:
-  alertmanagers:
-    - static_configs:
-        - targets:
-          # - alertmanager:9093
-
-scrape_configs:
-  - job_name: "ultrafeeder"
-    static_configs:
-      - targets: ["localhost:9273", "localhost:9274"]
-
-  - job_name: "prometheus"
-    static_configs: 
-      - targets: ["localhost:9090"]
-
-remote_write:
-  - url: https://prometheus-prod-13-prod-us-east-0.grafana.net/api/prom/push
-    basic_auth:
-      username: 1488847
-      password: glc_eyJvIjoiMTA4MjgwNiIsIm4iOiJzdGFjay04ODc4MjAtaG0tcmVhZC1kZWZsaS1kb2NrZXIiLCJrIjoiN2NXNjJpMDkyTmpZUWljSDkwT3NOMDh1IiwibSI6eyJyIjoicHJvZC11cy1lYXN0LTAifX0=
-"""
 
 prometheus_file_path = "/opt/grafana/prometheus/config/prometheus.yml"
 with open(prometheus_file_path, "w") as file:
@@ -400,17 +361,38 @@ bucketid_entry.grid(row=5, column=1, padx=10, pady=10)
 running_label.grid(row=6, column=1, padx=10, pady=10)
 
 # Create and configure widgets for Service 2 (grafana)
-start_button_2 = tk.Button(tab2, text="Start Grafana Service", command=lambda: start_service("docker-compose-grafana.yml", lat_entry2, lon_entry2, tz_entr2y, alt_entry2, bucketid_entry2, running_label))
+start_button_2 = tk.Button(tab2, text="Start Grafana Service", command=lambda: start_service("docker-compose-grafana.yml", lat_entry2, lon_entry2, tz_entr2y, alt_entry2, bucketid_entry2, running_label_2))
 stop_button_2 = tk.Button(tab2, text="Stop GRAFANA Service", command=lambda: stop_service("docker-compose-grafana.yml", running_label_2))
 save_button_2 = tk.Button(tab2, text="Save Changes", command=lambda: save_changes("docker-compose-grafana.yml"))
+lat_label_2 = tk.Label(tab2, text="Latitude:")
+lon_label_2 = tk.Label(tab2, text="Longitude:")
+tz_label_2 = tk.Label(tab2, text="Timezone:")
+alt_label_2 = tk.Label(tab2, text="Altitude M:")
+bucketid_label_2 = tk.Label(tab2, text="BucketID:")
+lat_entry = tk.Entry(tab2)
+lon_entry = tk.Entry(tab2)
+tz_entry = tk.Entry(tab2)
+alt_entry = tk.Entry(tab2)
+bucketid_entry = tk.Entry(tab2)
+running_label = tk.Label(tab2, text="Not Running", foreground="red")
 running_label_2 = tk.Label(tab2, text="Not Running", foreground="red")
 
 
 # Arrange widgets for Service 2 (grafana)
 start_button_2.grid(row=0, column=0, padx=10, pady=10)
 stop_button_2.grid(row=0, column=1, padx=10, pady=10)
-save_button_2.grid(row=4, column=0, padx=10, pady=10)
-running_label_2.grid(row=4, column=1, padx=10, pady=10)
+save_button_2.grid(row=6, column=0, padx=10, pady=10)
+running_label_2.grid(row=6, column=1, padx=10, pady=10)
+lat_label_2.grid(row=1, column=0, padx=10, pady=10)
+lat_entry.grid(row=1, column=1, padx=10, pady=10)
+lon_label_2.grid(row=2, column=0, padx=10, pady=10)
+lon_entry.grid(row=2, column=1, padx=10, pady=10)
+tz_label_2.grid(row=3, column=0, padx=10, pady=10)
+tz_entry.grid(row=3, column=1, padx=10, pady=10)
+alt_label_2.grid(row=4, column=0, padx=10, pady=10)
+alt_entry.grid(row=4, column=1, padx=10, pady=10)
+bucketid_label_2.grid(row=5, column=0, padx=10, pady=10)
+bucketid_entry.grid(row=5, column=1, padx=10, pady=10)
 
 # Create and configure widgets for Service 3 (acarshub)
 feed_label = tk.Label(tab3, text="FEED_ID:")
@@ -447,6 +429,47 @@ alt_label_3.grid(row=4, column=1, padx=10, pady=10)
 feed_label.grid(row=5, column=0, padx=10, pady=10)
 feed_entry.grid(row=5, column=1, padx=10, pady=10)
 running_label_3.grid(row=6, column=1, padx=10, pady=10)
+
+# Function to install and grafana directories and prometheus.yml file
+import os
+
+directories = [
+    "/opt/grafana/grafana/appdata",
+    "/opt/grafana/prometheus/config",
+    "/opt/grafana/prometheus/data"
+]
+
+for directory in directories:
+    os.makedirs(directory, exist_ok=True)
+
+prometheus_config = """\
+# my global config
+global:
+  scrape_interval: 10
+  evaluation_interval: 10
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+scrape_configs:
+  - job_name: "ultrafeeder"
+    static_configs:
+      - targets: ["localhost:9273", "localhost:9274"]
+
+  - job_name: "prometheus"
+    static_configs: 
+      - targets: ["localhost:9090"]
+
+remote_write:
+  - url: https://prometheus-prod-13-prod-us-east-0.grafana.net/api/prom/push
+    basic_auth:
+      username: 1488847
+      password: glc_eyJvIjoiMTA4MjgwNiIsIm4iOiJzdGFjay04ODc4MjAtaG0tcmVhZC1kZWZsaS1kb2NrZXIiLCJrIjoiN2NXNjJpMDkyTmpZUWljSDkwT3NOMDh1IiwibSI6eyJyIjoicHJvZC11cy1lYXN0LTAifX0=
+"""
 
 # Start the GUI event loop
 window.mainloop()
