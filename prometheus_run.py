@@ -41,3 +41,5 @@ remote_write:
 prometheus_file_path = "/opt/grafana/prometheus/config/prometheus.yml"
 with open(prometheus_file_path, "w") as file:
     file.write(prometheus_config)
+
+print("Directories and Prometheus configuration file created successfully.")
