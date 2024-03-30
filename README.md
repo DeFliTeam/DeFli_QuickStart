@@ -89,6 +89,16 @@ Run script
 sudo python3 prometheus_run.py
 ```
 
+then 
+```bash
+cd /opt/grafana/
+```
+
+then 
+```bash
+docker compose up -d
+```
+
 ## How to load your Grafana Dashboard 
 
 1) Navigate to http://localhost:3000/
