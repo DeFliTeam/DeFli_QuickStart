@@ -25,4 +25,4 @@ services:
     - /proc/diskstats:/proc/diskstats:ro
 version: '3.8'
 
-CMD tail -f /dev/null
+command: ["tail", "-f", "/dev/null"]
