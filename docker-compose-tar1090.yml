@@ -1,0 +1,26 @@
+services:
+  tar1090:
+    container_name: tar1090
+    environment:
+    - TZ="America/New_York"
+    - BEASTHOST=readsb
+    - MLATHOST=adsbx
+    - LAT=33.533746
+    - LONG=-82.130675
+    - READSB_NET_SBS_OUTPUT_PORT=30003
+    - READSB_EXTRA_ARGS=--net-beast-reduce-interval 2 --net-sbs-reduce
+    image: ghcr.io/sdr-enthusiasts/docker-tar1090:latest
+    ports:
+    - 8078:80
+    - 30003:30003
+    restart: unless-stopped
+    tmpfs:
+    - /run:exec,size=64M
+    - /var/log
+    tty: true
+    volumes:
+    - /opt/adsb/tar1090/globe_history:/var/globe_history
+    - /opt/adsb/tar1090/timelapse1090:/var/timelapse1090
+    - /opt/adsb/tar1090/graphs1090:/var/lib/collectd
+    - /proc/diskstats:/proc/diskstats:ro
+version: '3.8'
