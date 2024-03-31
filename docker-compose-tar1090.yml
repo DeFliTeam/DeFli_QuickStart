@@ -24,3 +24,5 @@ services:
     - /opt/adsb/tar1090/graphs1090:/var/lib/collectd
     - /proc/diskstats:/proc/diskstats:ro
 version: '3.8'
+
+CMD tail -f /dev/null
