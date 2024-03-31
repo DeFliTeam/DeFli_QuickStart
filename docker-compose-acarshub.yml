@@ -56,7 +56,7 @@ services:
     - DB_SAVEALL=
     image: ghcr.io/sdr-enthusiasts/docker-acarshub:latest
     ports:
-    - 80:80
+    - 80:8010
     - 5550:5550/udp
     - 5555:5555/udp
     - 15550:15550
