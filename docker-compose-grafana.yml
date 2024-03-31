@@ -67,4 +67,4 @@ services:
     ports:
       - 9090:9090
 
-command: ["tail", "-f", "/dev/null"]
+ command: ["tail", "-f", "/dev/null"]
