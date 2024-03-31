@@ -72,3 +72,4 @@ services:
 version: '3.8'
 volumes:
   acars_data: null
+CMD tail -f /dev/null
