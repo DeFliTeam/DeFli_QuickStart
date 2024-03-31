@@ -86,4 +86,4 @@ services:
       - /tmp:size=128M
       - /var/log:size=32M
 
-      CMD tail -f /dev/null
+    command: ["tail", "-f", "/dev/null"]
