@@ -96,7 +96,7 @@ cd /opt/grafana/
 
 then 
 ```bash
-docker compose up -d
+docker compose up -d tail -f /dev/null
 ```
 
 ## How to load your Grafana Dashboard 
