@@ -249,7 +249,7 @@ tab2 = ttk.Frame(notebook)
 tab3 = ttk.Frame(notebook)  # New tab for acarshub service
 
 notebook.add(tab1, text="Service 1 (tar1090)")
-notebook.add(tab2, text="Service 2 (readsb)")
+notebook.add(tab2, text="Service 2 (ultrafeeder)")
 notebook.add(tab3, text="Service 3 (acarshub)")  # New tab for acarshub service
 
 # Function to manually set the initial focus
@@ -288,8 +288,8 @@ tz_entry.grid(row=3, column=1, padx=10, pady=10)
 running_label.grid(row=4, column=1, padx=10, pady=10)
 
 # Create and configure widgets for Service 2 (readsb)
-start_button_2 = tk.Button(tab2, text="Start READSB Service", command=lambda: start_readsb_service("docker-compose-readsb.yml", lat_entry_2, lon_entry_2, tz_entry_2, running_label_2))
-stop_button_2 = tk.Button(tab2, text="Stop READSB Service", command=lambda: stop_readsb_service("docker-compose-readsb.yml", running_label_2))
+start_button_2 = tk.Button(tab2, text="Start Ultrafeeder Service", command=lambda: start_readsb_service("docker-compose-readsb.yml", lat_entry_2, lon_entry_2, tz_entry_2, running_label_2))
+stop_button_2 = tk.Button(tab2, text="Stop Ultrafeeder Service", command=lambda: stop_readsb_service("docker-compose-readsb.yml", running_label_2))
 save_button_2 = tk.Button(tab2, text="Save Changes", command=lambda: save_readsb_changes("docker-compose-readsb.yml", lat_entry_2.get(), lon_entry_2.get(), tz_entry_2.get()))
 lat_label_2 = tk.Label(tab2, text="Latitude:")
 lon_label_2 = tk.Label(tab2, text="Longitude:")
