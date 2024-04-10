@@ -115,7 +115,7 @@ docker compose up -d
 1) From within your dashboard click on the "cog" icon (dashboard settings)
 2) Choose "JSON Model" from the setting menu on the left of the screen and then click anywhere in the JSON text.
 3) Press ctrl+f and press the > button to show "find and replace".
-4) Find all (2) instances of my_feeder and replace them with the IP of your tar1090 map page (probably http://localhost:8078/).
+4) Find all (2) instances of feeder_url and replace them with the IP of your tar1090 map page (probably http://localhost:8080/).
 5) Press Save dashboard at the top right of the screen, followed by Save on the next screen.
 6) Press ESC to go back to your dashboard.
 
